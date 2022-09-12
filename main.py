@@ -76,6 +76,16 @@ def scrap_all_books_from_category(category_url):
     return books
 
 
+def scrap_categories_urls(main_page_url):
+    main_page_soup = get_soup_from_url(main_page_url)
+    categories_urls_soup = main_page_soup.select(".nav ul li a")
+    categories_urls = [
+        url_base + "/" + url_soup.attrs["href"]
+        for url_soup in categories_urls_soup
+    ]
+    return categories_urls
+
+
 def create_csv_book_file(csv_file_name):
     with open(csv_file_name, "w") as csv_file:
         book_writer = csv.writer(csv_file)
@@ -104,3 +114,20 @@ def add_books_to_csv(books, csv_file_name):
         csv_writer = csv.writer(csv_file)
         for book in books:
             csv_writer.writerow(book.values())
+
+
+def main():
+    categories_urls = scrap_categories_urls(url_base)
+    for category_url in categories_urls:
+        print(category_url)
+        books = scrap_all_books_from_category(category_url)
+
+        category = category_url.split("/")[6]
+
+        csv_file_name = f"./csv_files/books_{category}.csv"
+        create_csv_book_file(csv_file_name)
+        add_books_to_csv(books, csv_file_name)
+
+
+if __name__ == '__main__':
+    main()
