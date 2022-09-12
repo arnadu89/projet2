@@ -44,8 +44,15 @@ def scrap_book_data_from_url(book_url):
     book["image_url"] = image_url
 
     image_file_name = f"./book_pictures/{book['universal_product_code']}.png"
+    save_book_image(image_file_name, image_url)
 
     return book
+
+
+def save_book_image(image_file_name, image_url):
+    image_data = requests.get(image_url).content
+    with open(image_file_name, "wb") as file:
+        file.write(image_data)
 
 
 def scrap_books_datas_from_category_page_soup(category_page_soup):
