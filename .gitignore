@@ -1,2 +1,6 @@
 .idea/
 venv/
+csv_files/*
+!csv_files/.gitkeep
+book_pictures/*
+!book_pictures/.gitkeep
