@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
+import csv
 
 url_base = "https://books.toscrape.com"
 
@@ -45,3 +46,9 @@ def scrap_book_data_from_url(book_url):
     image_file_name = f"./book_pictures/{book['universal_product_code']}.png"
 
     return book
+
+
+def add_book_to_csv(book, csv_file_name):
+    with open(csv_file_name, "a") as csv_file:
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(book.values())
