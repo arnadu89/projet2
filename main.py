@@ -48,7 +48,59 @@ def scrap_book_data_from_url(book_url):
     return book
 
 
+def scrap_books_datas_from_category_page_soup(category_page_soup):
+    """Scrap books from a category page"""
+    books = []
+    soup_books = category_page_soup.select(".product_pod h3 a")
+    for soup_book_url in soup_books:
+        book_url = f"{url_base}/catalogue{soup_book_url.attrs['href'][8:]}"
+        book = scrap_book_data_from_url(book_url)
+        books.append(book)
+
+    return books
+
+
+def scrap_all_books_from_category(category_url):
+    books = []
+    category_page_soup = get_soup_from_url(category_url)
+    books.extend(scrap_books_datas_from_category_page_soup(category_page_soup))
+
+    next_page = category_page_soup.select_one(".pager .next a")
+    while next_page:
+        category_url_next_page = f"{category_url[:-11]}/{next_page.attrs['href']}"
+        category_page_soup = get_soup_from_url(category_url_next_page)
+
+        books.extend(scrap_books_datas_from_category_page_soup(category_page_soup))
+        next_page = category_page_soup.select_one(".pager .next a")
+
+    return books
+
+
+def create_csv_book_file(csv_file_name):
+    with open(csv_file_name, "w") as csv_file:
+        book_writer = csv.writer(csv_file)
+        book_writer.writerow([
+            "product_page_url",
+            "universal_product_code",
+            "title",
+            "price_including_tax",
+            "price_excluding_tax",
+            "number_available",
+            "product_description",
+            "category",
+            "review_rating",
+            "image_url"
+        ])
+
+
 def add_book_to_csv(book, csv_file_name):
     with open(csv_file_name, "a") as csv_file:
         csv_writer = csv.writer(csv_file)
         csv_writer.writerow(book.values())
+
+
+def add_books_to_csv(books, csv_file_name):
+    with open(csv_file_name, "a") as csv_file:
+        csv_writer = csv.writer(csv_file)
+        for book in books:
+            csv_writer.writerow(book.values())
