@@ -1,6 +1,7 @@
 .idea/
 venv/
-csv_files/*
-!csv_files/.gitkeep
-book_pictures/*
-!book_pictures/.gitkeep
+booktoscrape/csv_files/*
+!booktoscrape/csv_files/.gitkeep
+booktoscrape/book_pictures/*
+!booktoscrape/book_pictures/.gitkeep
+*__pycache__*
