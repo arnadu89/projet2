@@ -1,6 +1,6 @@
 import csv
 import requests
-from booktoscrape.constants import BOOK_PICTURES_FOLDER, WORKING_DIRECTORY
+from booktoscrape.constants import BOOK_PICTURES_FOLDER
 
 
 def create_csv_book_file(csv_file_name):
@@ -38,8 +38,7 @@ def add_books_to_csv(books, csv_file_name):
 
 def save_book_image(image_name, image_url):
     """save png picture of a book"""
-    # image_file_name = f"./booktoscrape/{BOOK_PICTURES_FOLDER}/{image_name}.png"
-    image_file_name = f"{WORKING_DIRECTORY}/{BOOK_PICTURES_FOLDER}/{image_name}.png"
+    image_file_name = f"{BOOK_PICTURES_FOLDER}/{image_name}.png"
     image_data = requests.get(image_url).content
     with open(image_file_name, "wb") as file:
         file.write(image_data)
