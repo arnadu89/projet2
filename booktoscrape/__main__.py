@@ -1,7 +1,7 @@
 from booktoscrape.categories import scrap_categories_urls
 from booktoscrape.constants import BOOKTOSCRAPE_URL, CSV_FILES_FOLDER
 from booktoscrape.books import scrap_all_books_from_category
-from booktoscrape.extract import create_csv_book_file, add_books_to_csv
+from booktoscrape.save import create_csv_book_file, add_books_to_csv
 
 
 def main():

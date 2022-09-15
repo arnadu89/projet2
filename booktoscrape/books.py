@@ -1,5 +1,5 @@
 from booktoscrape.scrape import get_soup_from_url
-from booktoscrape.extract import save_book_image
+from booktoscrape.save import save_book_image
 from booktoscrape.constants import BOOKTOSCRAPE_URL
 
 
