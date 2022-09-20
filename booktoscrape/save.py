@@ -21,13 +21,6 @@ def create_csv_book_file(csv_file_name):
         ])
 
 
-def add_book_to_csv(book, csv_file_name):
-    """Add book information line in csv file"""
-    with open(csv_file_name, "a") as csv_file:
-        csv_writer = csv.writer(csv_file)
-        csv_writer.writerow(book.values())
-
-
 def add_books_to_csv(books, csv_file_name):
     """Add multiple books information in csv file"""
     with open(csv_file_name, "a") as csv_file:
